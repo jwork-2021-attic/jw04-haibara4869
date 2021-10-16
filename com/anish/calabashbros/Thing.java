@@ -26,7 +26,7 @@ public class Thing {
         this.world = world;
     }
 
-    private final Color color;
+    public final Color color;
 
     public Color getColor() {
         return this.color;
