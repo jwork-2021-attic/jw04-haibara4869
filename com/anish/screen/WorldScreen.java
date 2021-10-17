@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 
 import com.anish.calabashbros.BubbleSorter;
 import com.anish.calabashbros.Calabash;
+import com.anish.calabashbros.Creature;
 import com.anish.calabashbros.World;
 
 import asciiPanel.AsciiPanel;
@@ -12,12 +13,14 @@ import asciiPanel.AsciiPanel;
 public class WorldScreen implements Screen {
 
     private World world;
-    private Calabash[] bros;
+    private Creature bro;
     String[] sortSteps;
 
     public WorldScreen() {
         world = new World();
-
+        bro = new Creature(new Color(200, 0, 200),'.', world);
+        world.put(bro, 0, 0);
+/*
         bros = new Calabash[7];
 
         bros[3] = new Calabash(new Color(204, 0, 0), 1, world);
@@ -41,6 +44,7 @@ public class WorldScreen implements Screen {
         b.sort();
 
         sortSteps = this.parsePlan(b.getPlan());
+        */
     }
 
     private String[] parsePlan(String plan) {
@@ -77,13 +81,41 @@ public class WorldScreen implements Screen {
 
     @Override
     public Screen respondToUserInput(KeyEvent key) {
-
+        switch(key.getKeyCode()){
+            case KeyEvent.VK_DOWN: {
+                if(this.world.mazeGenerator.checkoutWall(bro.getX(), bro.getY()+1)==false){
+                    bro.moveTo(bro.getX(), bro.getY()+1);
+                }
+                break;
+            }
+            case KeyEvent.VK_UP: {
+                if(this.world.mazeGenerator.checkoutWall(bro.getX(), bro.getY()-1)==false){
+                    bro.moveTo(bro.getX(), bro.getY()-1);
+                }
+                break;
+            }
+            case KeyEvent.VK_LEFT: {
+                if(this.world.mazeGenerator.checkoutWall(bro.getX()-1, bro.getY())==false){
+                    bro.moveTo(bro.getX()-1, bro.getY());
+                }
+                break;
+            }
+            case KeyEvent.VK_RIGHT: {
+                if(this.world.mazeGenerator.checkoutWall(bro.getX()+1, bro.getY())==false){
+                    bro.moveTo(bro.getX()+1, bro.getY());
+                }
+                break;
+            }
+            default: ;
+        }
+        return this;
+}
+}
+/*
         if (i < this.sortSteps.length) {
             this.execute(bros, sortSteps[i]);
             i++;
         }
 
         return this;
-    }
-
-}
+        */

@@ -4,7 +4,7 @@ import java.awt.Color;
 
 public class Creature extends Thing {
 
-    Creature(Color color, char glyph, World world) {
+    public Creature(Color color, char glyph, World world) {
         super(color, glyph, world);
     }
 
